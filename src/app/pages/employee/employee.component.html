@@ -1,0 +1,97 @@
+<div class="container demo-container">
+  <div class="row" style="margin-bottom: 15px;">
+    <div class="col-sm-12">
+      <h4>
+        Data about employees
+      </h4>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom: 15px;">
+    <div class="col-sm-12">
+      <button mat-raised-button color="primary" (click)="showCreateEmployee()" id="btn_create_employee">
+        {{buttonMessage_1}} 
+      </button>
+    </div>
+  </div>
+
+  <div class="row" style="margin-bottom: 15px;" *ngIf="showCreateEmployeeForm">
+    <!-- ============================ CREATE EMPLOYEE FORM ============================ -->
+    <div class="col-sm-8">
+      <form #createEmployeeForm="ngForm" (ngSubmit)="onSubmitCreateEmployeeForm()">
+        <div class="mb-3">
+          <label>Name</label>
+          <input type="text" class="form-control" [(ngModel)]="createUserModel.name" #name="ngModel" name="name"
+            required>
+        </div>
+        <div class="mb-3">
+          <label>Age</label>
+          <input type="number" class="form-control" maxlength="2" min="18" max="70" [(ngModel)]="createUserModel.age"
+            #age="ngModel" name="age" required>
+        </div>
+        <div class="mb-3">
+          <label>Salary (RON)</label>
+          <input type="number" class="form-control" min="1000" max="50000" [(ngModel)]="createUserModel.salary" #salary="ngModel"
+            name="salary" required>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="btn btn-success" [disabled]="!createEmployeeForm.form.valid">Save </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-sm" style="text-align: center;">
+      <thead>
+        <tr>
+          <th *ngFor="let head of tableHead" [attr.colspan]="head.colspan">{{head.name}}</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let employee of employees">
+
+        <tr>
+          <td style="width:10%">{{employee.id}}</td>
+          <td style="width:20%">{{employee.name}}</td>
+          <td style="width:20%">{{employee.salary}}(RON)</td>
+          <td style="width:20%">{{employee.age}}</td>
+          <td style="width:30%">
+            <button mat-raised-button color="warn" (click)="deleteEmployee(employee.id)">Delete</button>
+          </td>
+          <td>
+            <button mat-raised-button color="primary" (click)="showUpdateEmployee(employee)">Update</button>
+          </td>
+        </tr>
+
+        <tr *ngIf="updateUserModel?.id == employee.id">
+          <td colspan="6">
+            <!-- ============================ UPDATE EMPLOYEE FORM ============================ -->
+            <div class="col-sm-8" style="margin:auto">
+              <form #updateEmployeeForm="ngForm" (ngSubmit)="onSubmitUpdateEmployeeForm()">
+                <div class="mb-3">
+                  <label>Name</label>
+                  <input type="text" class="form-control" [(ngModel)]="updateUserModel.name" #name="ngModel" name="name"
+                    required>
+                </div>
+                <div class="mb-3">
+                  <label>Age</label>
+                  <input type="number" class="form-control" maxlength="2" min="18" max="70" [(ngModel)]="updateUserModel.age"
+                    #age="ngModel" name="age" required>
+                </div>
+                <div class="mb-3">
+                  <label>Salary (RON)</label>
+                  <input type="number" class="form-control" min="1000" max="50000" [(ngModel)]="updateUserModel.salary"
+                    #salary="ngModel" name="salary" required>
+                </div>
+                <div class="mb-3">
+                  <button type="submit" class="btn btn-success" [disabled]="!updateEmployeeForm.form.valid">Update
+                  </button>
+                </div>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
