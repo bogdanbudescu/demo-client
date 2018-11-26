@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Employee } from 'src/app/models/Employee';
 import { HttpParamsOptions, HttpParams } from '@angular/common/http/src/params';
+import { SignUp } from 'src/app/models/SignUp';
+import { SignIn } from 'src/app/models/SignIn';
 
 @Injectable({
   providedIn: 'root'
@@ -68,4 +70,30 @@ export class HttpService {
     };
     return this.http.post(`${this.server}/api/employees/create.php`, body, options);
   }
+
+ 
+  public regiser(signUpData: SignUp) {
+
+    let body = JSON.stringify(signUpData);
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post(`${this.server}/api/users/register.php`, body, options);
+  }
+
+  public login(signInData: SignIn) {
+
+    let body = JSON.stringify(signInData);
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post(`${this.server}/api/users/login.php`, body, options);
+ 
+  }
+
+
 }

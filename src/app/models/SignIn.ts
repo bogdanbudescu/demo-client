@@ -1,8 +1,8 @@
 export class SignIn {
-    public UserName: string;
+    public Email: string;
     public Password: string;
-    constructor(userName: string, password: string) {
-        this.UserName = userName;
+    constructor(email: string, password: string) {
+        this.Email = email;
         this.Password = password;
     }
 }
